@@ -27,6 +27,7 @@
 	<modules>
 		<module>autoconfigrue</module>
 		<module>spring-boot-security</module>
+		<module>spring-boot-mybatis</module>
 	</modules>
 	<properties>
 		<java.version>1.8</java.version>
