@@ -1,0 +1,10 @@
+security:
+  basic:
+    enabled: false
+spring:
+  application:
+    name: security
+
+
+server:
+  port: 9999
