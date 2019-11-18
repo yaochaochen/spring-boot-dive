@@ -1,4 +1,4 @@
-package com.security.dive.configrue;
+package com.security.dive.config;
 
 import com.security.dive.domain.MyUser;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.security.dive.configrue;
+package com.security.dive.config;
 
 
 import com.security.dive.handler.MyAuthenticationFailureHandler;
@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MyAuthenticationSucessHandler authenticationSucessHandler;
+    private MyAuthenticationSucessHandler authenticationSuccessHandler;
 
     @Autowired
     private MyAuthenticationFailureHandler authenticationFailureHandler;
@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()//表单登录
                 .loginPage("/authentication/require")
                 .loginProcessingUrl("/login")
-                .successHandler(authenticationSucessHandler)
+                .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
                 .and().authorizeRequests().antMatchers("\"/authentication/require\",\n" +//无需认证接口
                 "                            \"/login.html\", \"/code/image\"").permitAll().anyRequest().authenticated()

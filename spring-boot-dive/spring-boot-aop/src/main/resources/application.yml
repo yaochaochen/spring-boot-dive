@@ -61,9 +61,5 @@ spring:
       filter:
         stat:
           log-slow-sql: true
-logging:
-  level:
-    com:
-      dive:
-        aop:debug
+
 

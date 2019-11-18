@@ -29,6 +29,7 @@
 		<module>spring-boot-security</module>
 		<module>spring-boot-mybatis</module>
 		<module>spring-boot-aop</module>
+		<module>spring-boot-CORS-support</module>
 	</modules>
 	<properties>
 		<java.version>1.8</java.version>
