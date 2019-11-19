@@ -1,26 +1,35 @@
 package com.dive.aop.domain;
 
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
 
+@Entity
 public class SysLog implements Serializable {
 
-    private Integer id;
+    @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String username;
     private String operation;
     private Integer time;
     private String method;
     private String params;
     private String ip;
+    @Column(name = "create_time")
     private Date createTime;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

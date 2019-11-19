@@ -28,7 +28,7 @@ public class LogAspect {
     public void pointcut() {
     }
 
-    @Pointcut("pointcut()")
+    @Pointcut(value = "pointcut()")
     public void around(ProceedingJoinPoint point) {
 
         long beginTime = System.currentTimeMillis();
@@ -77,7 +77,7 @@ public class LogAspect {
         Date date = new Date();
         sysLog.setCreateTime(date);
         //保存到数据库
-        sysLogRepository.saveSysLog(sysLog);
+        sysLogRepository.save(sysLog);
 
     }
 
