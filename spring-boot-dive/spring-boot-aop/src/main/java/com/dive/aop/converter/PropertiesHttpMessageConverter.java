@@ -20,7 +20,7 @@ import java.util.Properties;
 public class PropertiesHttpMessageConverter extends AbstractGenericHttpMessageConverter<Properties> {
 
 
-    private PropertiesHttpMessageConverter() {
+    public PropertiesHttpMessageConverter() {
         super(new MediaType("text", "properties"));
     }
 
