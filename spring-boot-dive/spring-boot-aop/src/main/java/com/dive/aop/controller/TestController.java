@@ -5,10 +5,13 @@ import com.dive.aop.domain.SysLog;
 import com.dive.aop.service.SysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@RestController
+import java.util.Properties;
+
+@Controller
 public class TestController {
 
     @Autowired
@@ -33,4 +36,11 @@ public class TestController {
         return  sysLogService.findList(name, size, page);
 
     }
+
+    @GetMapping(value = "test", consumes = "text/properties")
+    public Properties getUser(@RequestBody Properties properties) {
+        return properties;
+    }
+
+    
 }
