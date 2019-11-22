@@ -1,4 +1,4 @@
-package com.yue.web.conifg;
+package com.yue.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
