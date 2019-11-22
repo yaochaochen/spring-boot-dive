@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloWorldController {
     @RequestMapping("")
     public String index() {
-//        model.addAttribute("acceptLanguage",acceptLanguage);
-//        model.addAttribute("jsessionId",jsessionId);
-//        model.addAttribute("message","Hello,World");
         return "index";
     }
 }
