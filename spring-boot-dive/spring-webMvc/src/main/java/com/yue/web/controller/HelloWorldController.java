@@ -1,4 +1,4 @@
-package com.imooc.web.controller;
+package com.yue.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
