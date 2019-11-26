@@ -33,6 +33,7 @@
 		<module>spring-boot-CORS-support</module>
 		<module>spring-boot-jpa</module>
 		<module>spring-webMvc</module>
+		<module>spring-boot-mvc</module>
 	</modules>
 	<properties>
 		<java.version>1.8</java.version>
