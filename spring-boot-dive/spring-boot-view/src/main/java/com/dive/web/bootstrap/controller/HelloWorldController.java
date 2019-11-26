@@ -11,7 +11,7 @@ public class HelloWorldController {
     public String helloWorld() {
         return "hello-world";
     }
-    @ModelAttribute
+    @ModelAttribute("message")
     public String message() {
         return "HelloWorld";
     }
