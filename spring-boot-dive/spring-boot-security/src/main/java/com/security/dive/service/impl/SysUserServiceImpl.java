@@ -3,9 +3,11 @@ package com.security.dive.service.impl;
 import com.security.dive.domain.SysUser;
 import com.security.dive.service.SysUserService;
 import com.security.dive.mapper.SysUserMapper;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+@Service
 public class SysUserServiceImpl implements SysUserService {
 
     @Resource
