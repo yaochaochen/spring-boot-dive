@@ -3,6 +3,8 @@ package com.security.dive.config;
 import com.security.dive.filter.JsonLoginPostProcessor;
 import com.security.dive.filter.LoginPostProcessor;
 import com.security.dive.filter.PreLoginFilter;
+import com.security.dive.handler.CustomLogoutHandler;
+import com.security.dive.handler.CustomLogoutSuccessHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -65,7 +67,15 @@ public class CustomSpringBootWebSecurityConfiguration {
                     .authorizeRequests().anyRequest().authenticated()
                     .and()
                     .addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class)
-                    .formLogin().loginProcessingUrl(LOGIN_PROCESSING_URL).successForwardUrl("/login/success").failureForwardUrl("/login/failure");
+                    .formLogin().loginProcessingUrl(LOGIN_PROCESSING_URL)
+                    .successForwardUrl("/login/success")
+                    .failureForwardUrl("/login/failure")
+                    //退出
+                    .and()
+                    .logout()
+                    .addLogoutHandler(new CustomLogoutHandler())
+                    .logoutSuccessHandler(new CustomLogoutSuccessHandler());
+
 
         }
     }

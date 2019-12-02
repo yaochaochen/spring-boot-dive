@@ -3,6 +3,7 @@ package com.security.dive.mapper;
 import com.security.dive.domain.SysUser;
 import org.apache.ibatis.annotations.Param;
 
+
 public interface SysUserMapper {
 
     /**

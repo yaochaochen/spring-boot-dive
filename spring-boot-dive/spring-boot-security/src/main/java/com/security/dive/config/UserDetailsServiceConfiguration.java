@@ -17,7 +17,7 @@ public class UserDetailsServiceConfiguration {
 
         UserDetailsRepository userDetailsRepository = new UserDetailsRepository();
         //登录创建账号，{noop}前缀使得密码不加密
-        UserDetails userDetails = User.withUsername("dive").password("{noop}12345").authorities(AuthorityUtils.NO_AUTHORITIES).build();
+        UserDetails userDetails = User.withUsername("Felordcn").password("{noop}12345").authorities(AuthorityUtils.NO_AUTHORITIES).build();
         userDetailsRepository.createUser(userDetails);
         return userDetailsRepository;
     }
