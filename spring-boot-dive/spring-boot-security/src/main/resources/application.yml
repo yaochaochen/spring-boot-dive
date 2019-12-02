@@ -1,10 +1,33 @@
-security:
-  basic:
-    enabled: false
 spring:
-  application:
-    name: security
+  datasource:
+    #  驱动
+    driver-class-name: org.h2.Driver
+    # h2 内存数据库 内存模式连接配置 库名: spring_security  mysql模式
+    url: jdbc:h2:mem:spring_security;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+    # 初始化数据表 DDL
+    schema: classpath:sql/ddl.sql
+    #  初始化数据 DML
+    data: classpath:sql/dml.sql
+  h2:
+    #    开启console 访问 默认false
+    console:
+      enabled: true
+      settings:
+        #      开启h2 console 跟踪 方便调试  默认 false
+        trace: true
+        #      允许console 远程访问 默认false
+        web-allow-others: true
+      #  h2 访问路径上下文
+      path: /h2-console
+# 日志
+logging:
+  level:
+    cn.felord.spring.security.mapper: debug
+    org.springframework.security: debug
 
-
-server:
-  port: 9999
+# mybatis 配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: cn.felord.spring.security.entity
