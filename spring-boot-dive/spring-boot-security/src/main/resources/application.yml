@@ -31,3 +31,16 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   type-aliases-package: cn.felord.spring.security.entity
+
+# jwt
+jwt:
+  config:
+    enabled: true
+    key-location: felordcn.jks
+    key-alias: felordcn
+    key-pass: 123456
+    iss: felord.cn
+    sub: all
+    access-exp-days: 30
+    refresh-exp-days: 90
+
