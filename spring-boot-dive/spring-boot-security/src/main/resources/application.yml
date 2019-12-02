@@ -30,7 +30,7 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
-  type-aliases-package: cn.felord.spring.security.entity
+  type-aliases-package: com.security.dive.domain
 
 # jwt
 jwt:

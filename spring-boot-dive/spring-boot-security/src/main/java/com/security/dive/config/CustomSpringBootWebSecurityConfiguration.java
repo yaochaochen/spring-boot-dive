@@ -5,6 +5,7 @@ import com.security.dive.filter.LoginPostProcessor;
 import com.security.dive.filter.PreLoginFilter;
 import com.security.dive.handler.CustomLogoutHandler;
 import com.security.dive.handler.CustomLogoutSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -15,6 +16,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
@@ -47,6 +50,11 @@ public class CustomSpringBootWebSecurityConfiguration {
         @Resource
         private PreLoginFilter preLoginFilter;
 
+        @Autowired
+        private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+        @Autowired
+        private AuthenticationFailureHandler authenticationFailureHandler;
 
 
         @Override
@@ -68,8 +76,8 @@ public class CustomSpringBootWebSecurityConfiguration {
                     .and()
                     .addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class)
                     .formLogin().loginProcessingUrl(LOGIN_PROCESSING_URL)
-                    .successForwardUrl("/login/success")
-                    .failureForwardUrl("/login/failure")
+                    .successForwardUrl("/login/success").successHandler(authenticationSuccessHandler)
+                    .failureForwardUrl("/login/failure").failureHandler(authenticationFailureHandler)
                     //退出
                     .and()
                     .logout()
