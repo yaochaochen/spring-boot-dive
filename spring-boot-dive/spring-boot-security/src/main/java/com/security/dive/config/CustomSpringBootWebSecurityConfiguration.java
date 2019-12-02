@@ -3,10 +3,13 @@ package com.security.dive.config;
 import com.security.dive.exception.SimpleAccessDeniedHandler;
 import com.security.dive.exception.SimpleAuthenticationEntryPoint;
 import com.security.dive.filter.JsonLoginPostProcessor;
+import com.security.dive.filter.JwtAuthenticationFilter;
 import com.security.dive.filter.LoginPostProcessor;
 import com.security.dive.filter.PreLoginFilter;
 import com.security.dive.handler.CustomLogoutHandler;
 import com.security.dive.handler.CustomLogoutSuccessHandler;
+import com.security.dive.jwt.JwtTokenGenerator;
+import com.security.dive.jwt.JwtTokenStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -18,6 +21,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -35,13 +39,25 @@ public class CustomSpringBootWebSecurityConfiguration {
 
 
     @Bean
-    public JsonLoginPostProcessor jsonLoginPostProcessor(){
+    public JsonLoginPostProcessor jsonLoginPostProcessor() {
         return new JsonLoginPostProcessor();
     }
 
     @Bean
-    public PreLoginFilter preLoginFilter(Collection<LoginPostProcessor> loginPostProcessors){
-        return new PreLoginFilter(LOGIN_PROCESSING_URL,loginPostProcessors);
+    public PreLoginFilter preLoginFilter(Collection<LoginPostProcessor> loginPostProcessors) {
+        return new PreLoginFilter(LOGIN_PROCESSING_URL, loginPostProcessors);
+    }
+
+    /**
+     * Jwt 认证过滤器.
+     *
+     * @param jwtTokenGenerator jwt 工具类 负责 生成 验证 解析
+     * @param jwtTokenStorage   jwt 缓存存储接口
+     * @return the jwt authentication filter
+     */
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtTokenGenerator jwtTokenGenerator, JwtTokenStorage jwtTokenStorage) {
+        return new JwtAuthenticationFilter(jwtTokenGenerator, jwtTokenStorage);
     }
 
 
@@ -57,6 +73,9 @@ public class CustomSpringBootWebSecurityConfiguration {
 
         @Autowired
         private AuthenticationFailureHandler authenticationFailureHandler;
+
+        @Autowired
+        private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 
         @Override
@@ -74,14 +93,21 @@ public class CustomSpringBootWebSecurityConfiguration {
             http.csrf().disable()
                     .cors()
                     .and()
+                    //session生成策略 无状态策略
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
                     //统一异常
                     .exceptionHandling().accessDeniedHandler(new SimpleAccessDeniedHandler())
                     .authenticationEntryPoint(new SimpleAuthenticationEntryPoint())
+                    .and()
+                    .authorizeRequests().antMatchers("/foo/test").hasAnyRole("ADMIN")
                     .and()
                     .authorizeRequests().anyRequest().authenticated()
                     .and()
                     //多方式登录
                     .addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class)
+                    //jwt必须配置在UsernamePasswordAuthenticationFilter之前
+                    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                     //表单提交
                     .formLogin().loginProcessingUrl(LOGIN_PROCESSING_URL)
                     .successForwardUrl("/login/success")

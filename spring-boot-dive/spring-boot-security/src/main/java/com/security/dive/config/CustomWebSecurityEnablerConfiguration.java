@@ -11,4 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @EnableWebSecurity(debug = true)
 public class CustomWebSecurityEnablerConfiguration {
+
+
 }
