@@ -1,5 +1,7 @@
 package com.security.dive.config;
 
+import com.security.dive.exception.SimpleAccessDeniedHandler;
+import com.security.dive.exception.SimpleAuthenticationEntryPoint;
 import com.security.dive.filter.JsonLoginPostProcessor;
 import com.security.dive.filter.LoginPostProcessor;
 import com.security.dive.filter.PreLoginFilter;
@@ -72,12 +74,21 @@ public class CustomSpringBootWebSecurityConfiguration {
             http.csrf().disable()
                     .cors()
                     .and()
+                    //统一异常
+                    .exceptionHandling().accessDeniedHandler(new SimpleAccessDeniedHandler())
+                    .authenticationEntryPoint(new SimpleAuthenticationEntryPoint())
+                    .and()
                     .authorizeRequests().anyRequest().authenticated()
                     .and()
+                    //多方式登录
                     .addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class)
+                    //表单提交
                     .formLogin().loginProcessingUrl(LOGIN_PROCESSING_URL)
-                    .successForwardUrl("/login/success").successHandler(authenticationSuccessHandler)
-                    .failureForwardUrl("/login/failure").failureHandler(authenticationFailureHandler)
+                    .successForwardUrl("/login/success")
+                    //token信息
+                    .successHandler(authenticationSuccessHandler)
+                    .failureForwardUrl("/login/failure")
+                    .failureHandler(authenticationFailureHandler)
                     //退出
                     .and()
                     .logout()
