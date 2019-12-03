@@ -10,16 +10,13 @@ import com.security.dive.handler.CustomLogoutHandler;
 import com.security.dive.handler.CustomLogoutSuccessHandler;
 import com.security.dive.jwt.JwtTokenGenerator;
 import com.security.dive.jwt.JwtTokenStorage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -68,24 +65,18 @@ public class CustomSpringBootWebSecurityConfiguration {
         @Resource
         private PreLoginFilter preLoginFilter;
 
-        @Autowired
-        private AuthenticationSuccessHandler authenticationSuccessHandler;
+        private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
-        @Autowired
-        private AuthenticationFailureHandler authenticationFailureHandler;
+        private final AuthenticationFailureHandler authenticationFailureHandler;
 
-        @Autowired
-        private JwtAuthenticationFilter jwtAuthenticationFilter;
+        private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            super.configure(auth);
-        }
-
-        @Override
-        public void configure(WebSecurity web) throws Exception {
-            super.configure(web);
+        public DefaultConfigurerAdapter(AuthenticationSuccessHandler authenticationSuccessHandler,
+                                        AuthenticationFailureHandler authenticationFailureHandler,
+                                        JwtAuthenticationFilter jwtAuthenticationFilter) {
+            this.authenticationSuccessHandler = authenticationSuccessHandler;
+            this.authenticationFailureHandler = authenticationFailureHandler;
+            this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         }
 
         @Override

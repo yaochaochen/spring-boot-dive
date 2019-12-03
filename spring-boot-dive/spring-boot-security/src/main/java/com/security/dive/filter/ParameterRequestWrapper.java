@@ -10,7 +10,7 @@ public class ParameterRequestWrapper extends HttpServletRequestWrapper {
      * @param request The request to wrap
      * @throws IllegalArgumentException if the request is null
      */
-    public ParameterRequestWrapper(HttpServletRequest request) {
+     ParameterRequestWrapper(HttpServletRequest request) {
         super(request);
     }
 
