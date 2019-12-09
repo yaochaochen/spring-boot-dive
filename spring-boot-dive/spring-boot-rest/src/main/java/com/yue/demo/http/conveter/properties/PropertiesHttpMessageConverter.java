@@ -21,7 +21,7 @@ import java.util.Properties;
 public class PropertiesHttpMessageConverter extends AbstractGenericHttpMessageConverter<Properties> {
 
 
-    public PropertiesHttpMessageConverter() {
+        public PropertiesHttpMessageConverter() {
         //设置支持MediaType
         super(new MediaType("text", "properties"));
     }
@@ -42,7 +42,8 @@ public class PropertiesHttpMessageConverter extends AbstractGenericHttpMessageCo
         //获取字符编码
         assert mediaType != null;
         Charset charset = mediaType.getCharset();
-        charset = charset == null ? Charset.forName("UTF-8") : charset;
+        if (charset == null) charset = Charset.forName("UTF-8");
+        else charset = charset;
 
         //字符流
         InputStream inputStream = inputMessage.getBody();
