@@ -15,8 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Repository
-
-public @interface FristLevelRepository {
+public @interface FirstLevelRepository {
 
     String value() default "";
 }

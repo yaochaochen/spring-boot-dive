@@ -1,8 +1,8 @@
 package com.autoconfigrue.springbootautoconfigrue.repository;
 
 
-import com.autoconfigrue.springbootautoconfigrue.annotation.FristLevelRepository;
+import com.autoconfigrue.springbootautoconfigrue.annotation.SecondLevelRepositoty;
 
-@FristLevelRepository(value = "myFirstLevelRepository")
+@SecondLevelRepositoty(value = "myFirstLevelRepository")
 public class MyFirstLevelRepository {
 }
