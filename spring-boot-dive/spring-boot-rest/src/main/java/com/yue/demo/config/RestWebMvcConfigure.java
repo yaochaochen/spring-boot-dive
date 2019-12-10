@@ -12,7 +12,6 @@ import java.util.List;
 public class RestWebMvcConfigure implements WebMvcConfigurer {
 
 
-
     @Override
      public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new PropertiesHttpMessageConverter());
