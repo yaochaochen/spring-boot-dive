@@ -5,18 +5,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
 @RestController
-public class HelloWorldAsnyController {
+public class HelloWorldAnsyController {
 
     @GetMapping("/hello")
     public DeferredResult<String> helloWorld() {
-        DeferredResult<String> result = new DeferredResult();
+        DeferredResult<String> result = new DeferredResult<>();
         result.setResult("Hello World");
-        result.onCompletion(()-> System.out.println("执行结束"));
+        result.onCompletion(()-> println("执行结束"));
         return result;
     }
 
-    private static  void printla(Object object) {
+    private static  void println(Object object) {
         String threadName = Thread.currentThread().getName();
-        System.out.println("当前线程【" + threadName + "】");
+        System.out.println("当前线程【" + threadName + "】" + object);
     }
 }

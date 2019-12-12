@@ -35,6 +35,7 @@
 		<module>spring-webMvc</module>
 		<module>spring-boot-mvc</module>
 		<module>spring-boot-view</module>
+		<module>spring-servlet</module>
 	</modules>
 	<properties>
 		<java.version>1.8</java.version>
