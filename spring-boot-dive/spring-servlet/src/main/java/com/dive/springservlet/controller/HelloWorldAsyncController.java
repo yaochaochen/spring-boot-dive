@@ -26,6 +26,8 @@ public class HelloWorldAsyncController {
         DeferredResult<String> result = new DeferredResult<>();
         result.setResult("Hello World");
         result.onCompletion(()-> println("执行结束"));
+        result.onTimeout(()-> println("执行超时"));
+        result.onError(throwable -> println("执行错误"));
         return result;
     }
     @GetMapping("/completion-stage")
